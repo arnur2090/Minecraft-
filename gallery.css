@@ -1,0 +1,133 @@
+body.gallery-page {
+  background: url('1000058734.jpg') no-repeat center center fixed;
+  background-size: cover;
+  background-color: #0f0f0f;
+  color: #e2e2e2;
+  font-family: 'Rubik', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  background: #121212;
+  padding: 15px;
+  box-shadow: 0 2px 10px rgba(0, 255, 100, 0.1);
+}
+
+nav a {
+  text-decoration: none;
+  color: #47ff71;
+  font-weight: bold;
+  padding: 8px 12px;
+  background-color: #000;
+  border-radius: 8px;
+  transition: 0.3s;
+  box-shadow: 0 0 6px rgba(71, 255, 113, 0.2);
+}
+
+nav a:hover,
+nav a.active {
+  background-color: #0f0f0f;
+  color: #ffffff;
+  box-shadow: 0 0 10px #47ff71;
+}
+
+.gallery-title {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 36px;
+  color: #47ff71;
+  text-shadow: 0 0 10px #47ff71;
+}
+
+.gallery-subtitle {
+  text-align: center;
+  color: #ccc;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  padding: 40px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.gallery-card {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(71, 255, 113, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 20px rgba(71, 255, 113, 0.4);
+}
+
+.gallery-img {
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* Lightbox */
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 25px #47ff71aa;
+  object-fit: contain;
+}
+
+.close {
+  position: absolute;
+  top: 25px;
+  right: 45px;
+  font-size: 40px;
+  color: #47ff71;
+  cursor: pointer;
+  text-shadow: 0 0 10px #47ff71;
+}
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #000;
+  color: #47ff71;
+  border: 2px solid #47ff71;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+  box-shadow: 0 0 8px rgba(71, 255, 113, 0.3);
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #0f0f0f;
+  color: #fff;
+  box-shadow: 0 0 12px #47ff71;
+}

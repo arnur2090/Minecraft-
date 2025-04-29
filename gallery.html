@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Галерея</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="gallery.css">
+</head>
+<body class="gallery-page">
+  <nav>
+    <a href="index.html">Главная</a>
+    <a href="gallery.html" class="active">Галерея</a>
+    <a href="mods.html">Моды</a>
+    <a href="about.html">О нас</a>
+  </nav>
+
+  <h1 class="gallery-title">Галерея приключений</h1>
+  <p class="gallery-subtitle">Моменты с сервера, которые мы любим</p>
+
+  <div class="gallery">
+    <div class="gallery-card">
+      <img src="2025-04-01_16.04.04.png" alt="Снимок 1" class="gallery-img">
+    </div>
+    <div class="gallery-card">
+      <img src="IMG-20250414-WA0007.jpg" alt="Снимок 2" class="gallery-img">
+    </div>
+    <div class="gallery-card">
+      <img src="IMG-20250414-WA0008.jpg" alt="снимок 3" class="gallery-img">
+    </div>
+    <div class="galler-card">
+      <img src="IMG-20250414-WA0006.jpg" alt="снимок 4" class="gallery-img">
+    </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox">
+    <span class="close" onclick="closeLightbox()">&times;</span>
+    <img id="lightbox-img" src="">
+  </div>
+
+  <script src="gallery.js"></script>
+</body>
+</html>
