@@ -76,6 +76,8 @@ footer {
   font-size: 0.9rem;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
   margin-top: 4rem;
+  position: relative;
+  z-index: 1;
 }
 
 .about {
@@ -101,19 +103,22 @@ footer {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
 .gallery {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  gap: 15px;
   padding: 20px;
 }
 
 .gallery-img {
-  max-width: 300px;
+  width: 100%;
+  max-width: 400px;
   border: 3px solid #4caf50;
   cursor: pointer;
   transition: transform 0.3s;
+  border-radius: 10px;
 }
 
 .gallery-img:hover {
@@ -147,6 +152,7 @@ footer {
   color: white;
   cursor: pointer;
 }
+
 .mods-list {
   max-width: 600px;
   margin: 4rem auto;
@@ -179,6 +185,7 @@ footer {
 .mods-list li:last-child {
   border-bottom: none;
 }
+
 .floating-steve {
   position: relative;
   text-align: center;
@@ -194,14 +201,4 @@ footer {
 @keyframes floatUpDown {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
-}
-
-footer {
-  position: relative;
-  background-color: #1c1c1c;
-  color: #888;
-  text-align: center;
-  padding: 1rem;
-  font-size: 0.9rem;
-  z-index: 1;
 }
