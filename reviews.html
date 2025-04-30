@@ -37,10 +37,14 @@
       list.innerHTML = '';
       const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
 
-      reviews.forEach(r => {
+      reviews.forEach((r, index) => {
         const el = document.createElement('div');
         el.classList.add('review');
-        el.innerHTML = `<p class="review-text">${r.text}</p><p class="review-author">${r.author}</p>`;
+        el.innerHTML = `
+          <p class="review-text">${r.text}</p>
+          <p class="review-author">${r.author}</p>
+          <button class="delete-btn" onclick="deleteReview(${index})">Удалить</button>
+        `;
         list.appendChild(el);
       });
     }
@@ -53,6 +57,13 @@
         localStorage.setItem('reviews', JSON.stringify(reviews));
         loadReviews();
       }
+    }
+
+    function deleteReview(index) {
+      const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+      reviews.splice(index, 1);
+      localStorage.setItem('reviews', JSON.stringify(reviews));
+      loadReviews();
     }
 
     window.onload = loadReviews;
