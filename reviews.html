@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Отзывы</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="logo">Minecraft World</div>
+    <nav>
+      <a href="index.html">Главная</a>
+      <a href="gallery.html">Галерея</a>
+      <a href="mods.html">Моды</a>
+      <a href="reviews.html">Отзывы</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="reviews-section">
+      <h2>Отзывы пользователей</h2>
+      <div id="reviews-list"></div>
+      <button class="add-review">Оставить отзыв</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Minecraft World.</p>
+  </footer>
+
+  <script>
+    function loadReviews() {
+      const list = document.getElementById('reviews-list');
+      list.innerHTML = '';
+      const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+
+      reviews.forEach(r => {
+        const el = document.createElement('div');
+        el.classList.add('review');
+        el.innerHTML = `<p class="review-text">${r.text}</p><p class="review-author">${r.author}</p>`;
+        list.appendChild(el);
+      });
+    }
+
+    function addReview() {
+      const text = prompt("Введите отзыв:");
+      if (text) {
+        const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+        reviews.push({ text, author: "Аноним" });
+        localStorage.setItem('reviews', JSON.stringify(reviews));
+        loadReviews();
+      }
+    }
+
+    window.onload = loadReviews;
+    document.querySelector('.add-review').addEventListener('click', addReview);
+  </script>
+</body>
+</html>
