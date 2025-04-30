@@ -29,56 +29,9 @@
       <img src="steve.png" alt="Steve">
     </div>
 
-    <!-- Блок с отзывами -->
-    <section id="reviews-section">
-      <h2>Отзывы клиентов</h2>
-      <div id="reviews-list"></div>
-      <button class="add-review">Оставить отзыв</button>
-    </section>
-  </main>
-
-  <footer>
+      <footer>
     <p>&copy; 2025 Minecraft World.</p>
   </footer>
 
-  <script>
-    // Функция для загрузки отзывов из LocalStorage
-    function loadReviews() {
-      const reviewsList = document.getElementById('reviews-list');
-      reviewsList.innerHTML = ''; // Очистить текущие отзывы
-      const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
-
-      reviews.forEach(review => {
-        const reviewElement = document.createElement('div');
-        reviewElement.classList.add('review');
-        reviewElement.innerHTML = `
-          <p class="review-text">${review.text}</p>
-          <p class="review-author">${review.author}</p>
-        `;
-        reviewsList.appendChild(reviewElement);
-      });
-    }
-
-    // Функция для добавления нового отзыва
-    function addReview() {
-      const reviewText = prompt("Введите ваш отзыв:");
-      if (reviewText) {
-        const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
-        const newReview = {
-          text: reviewText,
-          author: "Аноним"
-        };
-        reviews.push(newReview);
-        localStorage.setItem('reviews', JSON.stringify(reviews));
-        loadReviews(); // Перезагрузить список отзывов
-      }
-    }
-
-    // Загрузить отзывы при загрузке страницы
-    window.onload = loadReviews;
-
-    // Добавить обработчик события на кнопку
-    document.querySelector('.add-review').addEventListener('click', addReview);
-  </script>
 </body>
 </html>
