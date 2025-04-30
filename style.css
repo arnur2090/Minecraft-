@@ -205,3 +205,57 @@ footer {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
 }
+
+/* Стили для блока с отзывами */
+#reviews-section {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #1f1f1f;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 255, 100, 0.1);
+    color: #e2e2e2;
+    text-align: center;
+}
+
+#reviews-section h2 {
+    color: #47ff71;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.review {
+    background-color: #333;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.review-text {
+    font-size: 16px;
+    color: #ccc;
+    margin-bottom: 10px;
+}
+
+.review-author {
+    text-align: right;
+    font-size: 14px;
+    color: #777;
+}
+
+.add-review {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #47ff71;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.add-review:hover {
+    background-color: #45a049;
+}
