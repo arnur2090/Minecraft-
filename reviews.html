@@ -6,6 +6,70 @@
   <title>Отзывы</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    #review-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 500px;
+      margin: 20px 0;
+    }
+
+    #review-form input,
+    #review-form textarea {
+      padding: 10px;
+      font-family: 'Rubik', sans-serif;
+      font-size: 16px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+    }
+
+    #review-form button {
+      padding: 10px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #review-form button:hover {
+      background-color: #45a049;
+    }
+
+    .review {
+      background-color: #f4f4f4;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+    }
+
+    .review-text {
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    .review-author {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .review button {
+      background-color: #e53935;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+
+    .review button:hover {
+      background-color: #c62828;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -25,7 +89,7 @@
 
       <form id="review-form">
         <input type="text" id="author" placeholder="Ваше имя" required />
-        <textarea id="text" placeholder="Ваш отзыв" required></textarea>
+        <textarea id="text" placeholder="Ваш отзыв" rows="4" required></textarea>
         <button type="submit">Отправить</button>
       </form>
 
@@ -77,19 +141,22 @@
       loadReviews();
     }
 
-    document.getElementById("review-form").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const author = document.getElementById("author").value.trim() || "Аноним";
-      const text = document.getElementById("text").value.trim();
-      if (text) {
-        await addDoc(collection(db, "reviews"), { author, text });
-        document.getElementById("review-form").reset();
-        loadReviews();
-      }
-    });
-
     window.deleteReview = deleteReview;
-    window.onload = loadReviews;
+
+    window.addEventListener("DOMContentLoaded", () => {
+      loadReviews();
+
+      document.getElementById("review-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const author = document.getElementById("author").value.trim() || "Аноним";
+        const text = document.getElementById("text").value.trim();
+        if (text) {
+          await addDoc(collection(db, "reviews"), { author, text });
+          document.getElementById("review-form").reset();
+          loadReviews();
+        }
+      });
+    });
   </script>
 </body>
 </html>
