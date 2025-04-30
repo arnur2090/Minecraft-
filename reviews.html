@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Отзывы</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet" />
@@ -14,7 +14,6 @@
       max-width: 500px;
       margin: 20px 0;
     }
-
     #review-form input,
     #review-form textarea {
       padding: 10px;
@@ -23,7 +22,6 @@
       border: 2px solid #ccc;
       border-radius: 8px;
     }
-
     #review-form button {
       padding: 10px;
       font-size: 16px;
@@ -32,42 +30,24 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s;
     }
-
-    #review-form button:hover {
-      background-color: #45a049;
-    }
-
-    .review {
-      background-color: #f4f4f4;
+    #reviews-list .review {
+      background: #f4f4f4;
       padding: 15px;
       margin-bottom: 10px;
-      border-radius: 10px;
+      border-radius: 8px;
+      position: relative;
     }
-
-    .review-text {
-      font-size: 16px;
-      margin-bottom: 5px;
-    }
-
-    .review-author {
-      font-size: 14px;
-      color: #555;
-    }
-
     .review button {
-      background-color: #e53935;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: red;
       color: white;
       border: none;
-      padding: 6px 10px;
-      border-radius: 5px;
+      padding: 5px 8px;
+      border-radius: 6px;
       cursor: pointer;
-      margin-top: 5px;
-    }
-
-    .review button:hover {
-      background-color: #c62828;
     }
   </style>
 </head>
@@ -86,13 +66,11 @@
   <main>
     <section id="reviews-section">
       <h2>Отзывы пользователей</h2>
-
       <form id="review-form">
         <input type="text" id="author" placeholder="Ваше имя" required />
         <textarea id="text" placeholder="Ваш отзыв" rows="4" required></textarea>
         <button type="submit">Отправить</button>
       </form>
-
       <div id="reviews-list"></div>
     </section>
   </main>
@@ -102,61 +80,63 @@
   </footer>
 
   <!-- Firebase SDK -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
 
+  <script>
+    // Ваши данные Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyBbfB3LneyMe06--61hDrtLEYV7foxLG38",
       authDomain: "minecraft-reviews-74933.firebaseapp.com",
       projectId: "minecraft-reviews-74933",
-      storageBucket: "minecraft-reviews-74933.firebasestorage.app",
+      storageBucket: "minecraft-reviews-74933.appspot.com",
       messagingSenderId: "600714681174",
-      appId: "1:600714681174:web:a26b9af369e5a09246d4f7",
-      measurementId: "G-MMSXXVGTXQ"
+      appId: "1:600714681174:web:03323ee1b918861f46d4f7",
+      measurementId: "G-XNTX42X9VK"
     };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+    // Инициализация Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
+    // Загружаем отзывы
     async function loadReviews() {
       const list = document.getElementById("reviews-list");
       list.innerHTML = "";
-      const querySnapshot = await getDocs(collection(db, "reviews"));
-      querySnapshot.forEach((docSnap) => {
-        const r = docSnap.data();
+      const querySnapshot = await db.collection("reviews").get();
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
         const el = document.createElement("div");
         el.classList.add("review");
         el.innerHTML = `
-          <p class="review-text">${r.text}</p>
-          <p class="review-author">Автор: ${r.author}</p>
-          <button onclick="deleteReview('${docSnap.id}')">Удалить</button>
+          <p class="review-text">${data.text}</p>
+          <p class="review-author">Автор: ${data.author}</p>
+          <button onclick="deleteReview('${doc.id}')">Удалить</button>
         `;
         list.appendChild(el);
       });
     }
 
+    // Удаляем отзыв
     async function deleteReview(id) {
-      await deleteDoc(doc(db, "reviews", id));
+      await db.collection("reviews").doc(id).delete();
       loadReviews();
     }
 
-    window.deleteReview = deleteReview;
-
-    window.addEventListener("DOMContentLoaded", () => {
-      loadReviews();
-
-      document.getElementById("review-form").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const author = document.getElementById("author").value.trim() || "Аноним";
-        const text = document.getElementById("text").value.trim();
-        if (text) {
-          await addDoc(collection(db, "reviews"), { author, text });
-          document.getElementById("review-form").reset();
-          loadReviews();
-        }
-      });
+    // Отправляем новый отзыв
+    document.getElementById("review-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const author = document.getElementById("author").value.trim() || "Аноним";
+      const text = document.getElementById("text").value.trim();
+      if (text) {
+        await db.collection("reviews").add({ author, text });
+        document.getElementById("review-form").reset();
+        loadReviews();
+      }
     });
+
+    window.onload = loadReviews;
+    window.deleteReview = deleteReview;
   </script>
 </body>
 </html>
